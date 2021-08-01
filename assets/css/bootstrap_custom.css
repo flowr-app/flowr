@@ -1,0 +1,41 @@
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: #0984bd;
+}
+
+a {
+  color: #0984bd;
+}
+
+.badge-info {
+  color: #400547;
+  background-color: #cee1f5;
+}
+
+.btn-dark {
+  color: #eaeaea;
+  background-color: #5f666c;
+  border-color: #3f4448;
+}
+
+.list-group-item-secondary {
+  color: #383d41;
+  background-color: #f9f9f9;
+}
+
+.list-group-item-primary {
+  color: #004085;
+  background-color: #e0eefd;
+}
+
+.card-header {
+  background-color: rgba(0, 0, 0, 0);
+}
+.card-footer {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.list-group-item-link {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}

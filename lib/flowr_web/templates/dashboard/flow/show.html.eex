@@ -1,0 +1,5 @@
+<%= render "_flow.html", [flow: @flow, conn: @conn] %>
+
+<div class="mt-3">
+  <%= link "View Tasks", to: Routes.dashboard_flow_task_path(@conn, :index, @flow), class: "btn btn-sm btn-secondary" %>
+</div>

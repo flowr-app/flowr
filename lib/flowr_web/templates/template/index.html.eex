@@ -1,0 +1,276 @@
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-4">
+      <div class="card">
+        <div class="card-header text-success">
+          <i class="fa fa-clone"></i>
+          Save VoiceMail to Dropbox
+        </div>
+        <div class="card-body">
+          <ul class="list-group pt-3">
+            <li class="list-group-item">
+              <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">
+                  <i class="fa fa-bolt"></i>
+                  New VoiceMail
+                </h6>
+              </div>
+            </li>
+            <li class="list-group-item list-group-item-link text-center text-muted">
+              <i class="fa fa-long-arrow-alt-down"></i>
+            </li>
+            <li class="list-group-item">
+              <h6 class="mb-1">
+                <i class="fa fa-plug"></i>
+                Dropbox
+              </h6>
+              <p class="mb-1 text-muted">upload_file</p>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            <a href="#" class="card-link">Create Flow from template <small>(coming soon)</small></a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <div class="card-header text-success">
+          <i class="fa fa-clone"></i>
+          Save Call logs to Salesforce
+        </div>
+        <div class="card-body">
+          <ul class="list-group pt-3">
+            <li class="list-group-item">
+              <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">
+                  <i class="fa fa-bolt"></i>
+                  New Call Log
+                </h6>
+              </div>
+            </li>
+            <li class="list-group-item list-group-item-link text-center text-muted">
+              <i class="fa fa-long-arrow-alt-down"></i>
+            </li>
+            <li class="list-group-item">
+              <h6 class="mb-1">
+                <i class="fa fa-plug"></i>
+                Salesforce
+              </h6>
+              <p class="mb-1 text-muted">add_record</p>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            <a href="#" class="card-link">Create Flow from template <small>(coming soon)</small></a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <div class="card-header text-success">
+          <i class="fa fa-clone"></i>
+          Save SMS to Google Docs
+        </div>
+        <div class="card-body">
+          <ul class="list-group pt-3">
+            <li class="list-group-item">
+              <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">
+                  <i class="fa fa-bolt"></i>
+                  New SMS
+                </h6>
+              </div>
+            </li>
+            <li class="list-group-item list-group-item-link text-center text-muted">
+              <i class="fa fa-long-arrow-alt-down"></i>
+            </li>
+            <li class="list-group-item">
+              <h6 class="mb-1">
+                <i class="fa fa-plug"></i>
+                Google Sheets
+              </h6>
+              <p class="mb-1 text-muted">insert_row</p>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            <a href="#" class="card-link">Create Flow from template <small>(coming soon)</small></a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-4">
+      <div class="card">
+        <div class="card-header text-success">
+          <i class="fa fa-clone"></i>
+          Save Meeting Recording to Dropbox, then notify
+        </div>
+        <div class="card-body">
+          <ul class="list-group pt-3">
+            <li class="list-group-item">
+              <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">
+                  <i class="fa fa-bolt"></i>
+                  New Meeting Recording
+                </h6>
+              </div>
+            </li>
+            <li class="list-group-item list-group-item-link text-center text-muted">
+              <i class="fa fa-long-arrow-alt-down"></i>
+            </li>
+            <li class="list-group-item">
+              <h6 class="mb-1">
+                <i class="fa fa-plug"></i>
+                Transcoder
+              </h6>
+              <p class="mb-1 text-muted">video_to_text</p>
+            </li>
+            <li class="list-group-item list-group-item-link text-center text-muted">
+              <i class="fa fa-long-arrow-alt-down"></i>
+            </li>
+            <li class="list-group-item">
+              <h6 class="mb-1">
+                <i class="fa fa-plug"></i>
+                Dropbox
+              </h6>
+              <p class="mb-1 text-muted">upload_file</p>
+            </li>
+            <li class="list-group-item list-group-item-link text-center text-muted">
+              <i class="fa fa-long-arrow-alt-down"></i>
+            </li>
+            <li class="list-group-item">
+              <h6 class="mb-1">
+                <i class="fa fa-plug"></i>
+                Glip
+              </h6>
+              <p class="mb-1 text-muted">create_post</p>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            <a href="#" class="card-link">Create Flow from template <small>(coming soon)</small></a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <div class="card-header text-success">
+          <i class="fa fa-clone"></i>
+          Notify angry customer's call recording in Glip team
+        </div>
+        <div class="card-body">
+          <ul class="list-group pt-3">
+            <li class="list-group-item">
+              <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">
+                  <i class="fa fa-bolt"></i>
+                  New Call Recording
+                </h6>
+              </div>
+            </li>
+            <li class="list-group-item list-group-item-link text-center text-muted">
+              <i class="fa fa-long-arrow-alt-down"></i>
+            </li>
+            <li class="list-group-item">
+              <h6 class="mb-1">
+                <i class="fa fa-plug"></i>
+                Transcoder
+              </h6>
+              <p class="mb-1 text-muted">audio_to_text</p>
+            </li>
+            <li class="list-group-item list-group-item-link text-center text-muted">
+              <i class="fa fa-long-arrow-alt-down"></i>
+            </li>
+            <li class="list-group-item">
+              <h6 class="mb-1">
+                <i class="fa fa-plug"></i>
+                Cloud AI
+              </h6>
+              <p class="mb-1 text-muted">sentimental_analysis</p>
+            </li>
+            <li class="list-group-item list-group-item-link text-center text-muted">
+              <i class="fa fa-long-arrow-alt-down"></i>
+            </li>
+            <li class="list-group-item">
+              <h6 class="mb-1">
+                <i class="fa fa-plug"></i>
+                Filter
+              </h6>
+              <p class="mb-1 text-muted">filter_data</p>
+            </li>
+            <li class="list-group-item list-group-item-link text-center text-muted">
+              <i class="fa fa-long-arrow-alt-down"></i>
+            </li>
+            <li class="list-group-item">
+              <h6 class="mb-1">
+                <i class="fa fa-plug"></i>
+                Glip
+              </h6>
+              <p class="mb-1 text-muted">create_post</p>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            <a href="#" class="card-link">Create Flow from template <small>(coming soon)</small></a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <div class="card-header text-success">
+          <i class="fa fa-clone"></i>
+          Auto-reply with Glip Bot
+        </div>
+        <div class="card-body">
+          <ul class="list-group pt-3">
+            <li class="list-group-item">
+              <div class="d-flex w-100 justify-content-between">
+                <h6 class="mb-1">
+                  <i class="fa fa-bolt"></i>
+                  New Glip Message
+                </h6>
+              </div>
+            </li>
+            <li class="list-group-item list-group-item-link text-center text-muted">
+              <i class="fa fa-long-arrow-alt-down"></i>
+            </li>
+            <li class="list-group-item">
+              <h6 class="mb-1">
+                <i class="fa fa-plug"></i>
+                Glip Bot
+              </h6>
+              <p class="mb-1 text-muted">process_message</p>
+            </li>
+            <li class="list-group-item list-group-item-link text-center text-muted">
+              <i class="fa fa-long-arrow-alt-down"></i>
+            </li>
+            <li class="list-group-item">
+              <h6 class="mb-1">
+                <i class="fa fa-plug"></i>
+                Glip
+              </h6>
+              <p class="mb-1 text-muted">create_post</p>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            <a href="#" class="card-link">Create Flow from template <small>(coming soon)</small></a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

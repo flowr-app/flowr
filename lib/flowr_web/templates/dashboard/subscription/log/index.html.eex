@@ -1,0 +1,19 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Generated At</th>
+      <th>Info</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for subscription_log <- @subscription_logs do %>
+    <tr>
+      <td><%= subscription_log.inserted_at %></td>
+      <td><%= subscription_log.info |> Jason.encode! %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+

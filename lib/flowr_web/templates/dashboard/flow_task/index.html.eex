@@ -1,0 +1,20 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Run At</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for task <- @flow_tasks do %>
+    <tr>
+      <td><%= render "_#{task.status}.html" %></td>
+      <td><%= task.inserted_at  %></td>
+      <td>
+        <%= link "Details", to: Routes.dashboard_task_path(@conn, :show, task) %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

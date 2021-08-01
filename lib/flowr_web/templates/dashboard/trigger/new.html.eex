@@ -1,0 +1,5 @@
+<h1>New Trigger</h1>
+
+<%= live_render(@conn, FlowrWeb.Live.TriggerForm, session: %{"current_customer" => @current_customer, "trigger" => @trigger}) %>
+
+<span><%= link "Back", to: Routes.dashboard_trigger_path(@conn, :index) %></span>

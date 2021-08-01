@@ -1,0 +1,34 @@
+<%= form_for @changeset, "#", [phx_submit: :save], fn f -> %>
+  <%= PBF.text_input f, :name %>
+  <%= PBF.textarea f, :description %>
+
+  <h2>Auth Info</h2>
+  <%= inputs_for f, :auth, fn auth_f -> %>
+    <%= PBF.select auth_f, :auth_type, Flowr.Exterior.AuthType.auth_types() %>
+    <%= json_textarea auth_f, :connection_info %>
+  <% end %>
+
+  <h2>Functions</h2>
+  <%= inputs_for f, :functions, fn fun_f -> %>
+    <fieldset>
+      <legend>Function</legend>
+      <%= PBF.text_input fun_f, :name %>
+      <%= json_textarea fun_f, :arg_template %>
+    </fieldset>
+  <% end %>
+
+  <button type="button" phx-click="add_function" class="btn btn-secondary">+</button>
+
+  <h2>Run Info</h2>
+  <%= inputs_for f, :run_info, fn run_info_f -> %>
+    <%= PBF.select run_info_f, :adapter, Flowr.Automation.Runner.Adapter.adapters %>
+    <%= PBF.textarea run_info_f, :source_code %>
+  <% end %>
+
+  <h2>Config</h2>
+  <%= json_textarea f, :config %>
+
+  <div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+<% end %>

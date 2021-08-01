@@ -1,0 +1,18 @@
+<h1>Show Subscription</h1>
+
+<ul>
+
+  <li>
+    <strong>Event type:</strong>
+    <%= @subscription.event_type %>
+  </li>
+
+  <li>
+    <strong>Verification token:</strong>
+    <%= @subscription.verification_token %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.dashboard_subscription_path(@conn, :edit, @subscription) %></span>
+<span><%= link "Back", to: Routes.dashboard_subscription_path(@conn, :index) %></span>

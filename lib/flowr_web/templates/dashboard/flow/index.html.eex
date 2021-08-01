@@ -1,0 +1,20 @@
+<span>
+  <%= link to: Routes.dashboard_flow_path(@conn, :new), class: "btn btn-dark btn-sm" do %>
+    <i class="fa fa-plus"></i>
+    New Flow
+  <% end %>
+</span>
+<span>
+  <%= link to: Routes.template_path(@conn, :index), class: "badge badge-light" do %>
+    <i class="fa fa-lightbulb"></i>
+    Get inspiration from templates
+  <% end %>
+</span>
+
+<div class="row mt-3">
+  <%= for flow <- @flows do %>
+    <div class="col-6 p-2">
+      <%= render "_flow.html", [flow: flow, conn: @conn] %>
+    </div>
+  <% end %>
+</div>

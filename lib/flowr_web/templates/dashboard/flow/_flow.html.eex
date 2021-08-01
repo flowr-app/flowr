@@ -1,0 +1,46 @@
+  <div class="card">
+    <div class="card-header">
+      <i class="fa fa-project-diagram"></i>
+      <%= @flow.name %>
+    </div>
+
+    <div class="card-body">
+      <ul class="list-group pt-3">
+        <li class="list-group-item list-group-item-primary">
+          <div class="d-flex w-100 justify-content-between">
+            <h6 class="mb-1">
+              <i class="fa fa-bolt"></i>
+              <%= @flow.trigger.name %>
+            </h6>
+          </div>
+          <small class="mb-1 text-muted"><%= @flow.trigger.id %></small>
+        </li>
+
+        <%= for action <- @flow.actions do %>
+          <li class="list-group-item list-group-item-link text-center text-muted">
+            <i class="fa fa-long-arrow-alt-down"></i>
+          </li>
+          <li class="list-group-item list-group-item-secondary">
+            <% connector = Flowr.Exterior.get_connector!(action.connector_id) %>
+            <% account = Flowr.Exterior.get_account!(action.account_id) %>
+            <div class="d-flex w-100 justify-content-between">
+              <h6 class="mb-1">
+                <i class="fa fa-plug"></i>
+                <%= connector.name %>
+              </h6>
+              <small><%= account.name %></small>
+            </div>
+            <p class="text-muted mb-1">
+              <%= action.function %>
+            </p>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="card-body">
+      <%= link to: Routes.dashboard_flow_path(@conn, :edit, @flow), class: "card-link" do %>
+        Visual Editor <small>(coming soon)</small>
+      <% end %>
+      <%= link "Delete", to: Routes.dashboard_flow_path(@conn, :delete, @flow), method: :delete, data: [confirm: "Are you sure?"], class: "card-link" %>
+    </div>
+  </div>

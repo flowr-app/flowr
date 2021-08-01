@@ -1,0 +1,24 @@
+{
+  "repository": {},
+  "license": "MIT",
+  "scripts": {
+    "deploy": "webpack --mode production",
+    "watch": "webpack --mode development --watch"
+  },
+  "dependencies": {
+    "@webcomponents/template": "^1.4.3",
+    "bootstrap": "^5.0.2",
+    "child-replace-with-polyfill": "^1.0.1",
+    "classlist-polyfill": "^1.2.0",
+    "core-js": "^3.6.5",
+    "formdata-polyfill": "^3.0.20",
+    "mdn-polyfills": "^5.20.0",
+    "phoenix": "file:../deps/phoenix",
+    "phoenix_html": "file:../deps/phoenix_html",
+    "phoenix_live_view": "file:../deps/phoenix_live_view",
+    "popper.js": "^1.16.0",
+    "shim-keyboard-event-key": "^1.0.3",
+    "url-search-params-polyfill": "^8.1.0"
+  },
+  "devDependencies": {}
+}

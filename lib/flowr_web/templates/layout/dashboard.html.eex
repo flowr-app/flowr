@@ -1,0 +1,50 @@
+<div class="container">
+  <%= render "_nav.html", assigns %>
+
+  <div class="mt-3">
+    <div class="row">
+      <div class="col-3">
+        <ul class="nav nav-pills flex-column">
+          <%= if current_customer(@conn) do %>
+            <li class="nav-item">
+              <%= active_link @conn, to: Routes.dashboard_trigger_path(@conn, :index), class: "nav-link" do %>
+                <i class="fa fa-bolt"></i>
+                Triggers
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= active_link @conn, to: Routes.dashboard_flow_path(@conn, :index), class: "nav-link" do %>
+                <i class="fa fa-project-diagram"></i>
+                Flows
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= active_link @conn, to: Routes.dashboard_task_path(@conn, :index_all), class: "nav-link" do %>
+                <i class="fa fa-history"></i>
+                Tasks
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= active_link @conn, to: Routes.dashboard_connector_account_path(@conn, :index), class: "nav-link" do %>
+                <i class="fa fa-user-circle"></i>
+                Accounts
+              <% end %>
+            </li>
+            <li class="nav-item">
+            <hr />
+            </li>
+            <li class="nav-item">
+              <%= active_link @conn, to: Routes.dashboard_connector_path(@conn, :index), class: "nav-link" do %>
+                <i class="fa fa-plug"></i>
+                Connectors
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="col-9">
+        <%= @inner_content %>
+      </div>
+    </div>
+  </div>
+</div>

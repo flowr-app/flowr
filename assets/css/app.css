@@ -1,0 +1,4 @@
+/* This file is for your main application css. */
+
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "./bootstrap_custom";

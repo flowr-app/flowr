@@ -1,0 +1,12 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= PBF.text_input f, :name %>
+  <%= PBF.select f, :connector_id, Flowr.Exterior.list_connectors |> Enum.map(fn (connector) -> {connector.name, connector.id} end), prompt: "Choose a connector" %>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+<% end %>

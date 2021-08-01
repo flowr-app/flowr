@@ -1,0 +1,18 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Created At</th>
+      <th>Item ID</th>
+      <th>Data</th>
+    </tr>
+  </thead>
+  <tbody>
+  <%= for item <- @items do %>
+    <tr>
+      <td><%= item.inserted_at %></td>
+      <td><%= item.item_id %></td>
+      <td><%= item.data |> Jason.encode! %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

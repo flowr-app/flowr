@@ -1,0 +1,20 @@
+<%= f = form_for @changeset, "#", [phx_change: :validate, phx_submit: :save] %>
+  <%= PBF.text_input f, :name %>
+  <%= PBF.select f, :trigger_id, @triggers_for_select %>
+
+  <h3>Actions</h3>
+  <%= inputs_for f, :actions, fn action_f -> %>
+    <fieldset>
+      <legend>Action</legend>
+      <%= PBF.select action_f, :connector_id, @connectors_for_select %>
+      <%= PBF.select action_f, :account_id, @connector_accounts_for_select %>
+      <%= PBF.select action_f, :function, functions_for_select(action_f) %>
+      <%= json_textarea action_f, :args_template, value: value_for_args_template(action_f) %>
+    </fieldset>
+   <% end %>
+   <button type="button" phx-click="add_action" class="btn btn-link">Add Action</button>
+  
+  <div>
+    <button type="submit" phx-disable-with="Saving..." class="btn btn-primary">Submit</button>
+  </div>
+</form>

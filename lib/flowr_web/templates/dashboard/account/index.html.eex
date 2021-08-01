@@ -1,0 +1,44 @@
+<span>
+  <%= link to: Routes.dashboard_connector_account_path(@conn, :new), class: "btn btn-dark btn-sm" do %>
+    <i class="fa fa-plus"></i>
+    Connect an Account
+  <% end %>
+</span>
+
+<div class="mt-3">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Status</th>
+        <th>Name</th>
+        <th>Connector</th>
+
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+  <%= for account <- @connector_accounts do %>
+      <tr>
+        <td>
+          <%= unless Enum.empty?(account.credentials) do %>
+            <span class="text-success">
+              <i class="fa fa-link"></i>
+              Connected
+            </span>
+          <% end %>
+        </td>
+        <td>
+          <%= account.name %>
+        </td>
+        <td><%= account.connector.name %></td>
+
+        <td>
+          <%= link "Auth", to: Routes.dashboard_connector_account_path(@conn, :auth, account) %>
+          |
+          <%= link "Delete", to: Routes.dashboard_connector_account_path(@conn, :delete, account), method: :delete, data: [confirm: "Are you sure?"] %>
+        </td>
+      </tr>
+  <% end %>
+    </tbody>
+  </table>
+</div>

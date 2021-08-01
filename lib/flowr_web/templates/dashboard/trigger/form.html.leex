@@ -1,0 +1,32 @@
+<%= form_for @changeset, "#", [phx_change: :validate, phx_submit: :save], fn f -> %>
+  <%= PBF.text_input f, :name %>
+  <%= PBF.select f, :category, Flowr.Platform.Trigger.categories %>
+
+  <%= if (Phoenix.HTML.Form.input_value(f, :category) == "polling") do %>
+    <h3>Polling</h3>
+    <%= inputs_for f, :polling, fn polling_f -> %>
+      <%= PBF.text_input polling_f, :endpoint, input: [list: "polling-endpoints"] %>
+    <% end %>
+
+    <datalist id="polling-endpoints">
+      <%= for polling_endpoint <- Flowr.Platform.Polling.Endpoint.list() do %>
+        <option value="<%= polling_endpoint %>">
+      <% end %>
+    </datalist>
+  <% end %>
+
+  <%= if (Phoenix.HTML.Form.input_value(f, :category) == "subscription") do %>
+    <h3>Subscription</h3>
+    <%= inputs_for f, :subscription, fn sub_f -> %>
+      <%= PBF.text_input sub_f, :event_type, input: [list: "subscription-eventtypes"] %>
+    <% end %>
+
+    <datalist id="subscription-eventtypes">
+      <%= for subscription_event_type <- Flowr.Platform.Subscription.EventType.list() do %>
+        <option value="<%= subscription_event_type %>">
+      <% end %>
+    </datalist>
+  <% end %>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+<% end %>

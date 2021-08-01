@@ -1,0 +1,13 @@
+<h1>Show Connector</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @connector.name %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.developer_connector_path(@conn, :edit, @connector) %></span>
+<span><%= link "Back", to: Routes.developer_connector_path(@conn, :index) %></span>

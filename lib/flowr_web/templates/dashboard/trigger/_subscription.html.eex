@@ -1,0 +1,28 @@
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex w-100 justify-content-between">
+      <span>
+        <i class="fa fa-bolt"></i>
+        <%= @trigger.name %>
+      </span>
+      <div>
+        <span class="badge badge-info">
+          <i class="fa fa-rss"></i>
+          <%= @trigger.category |> Phoenix.Naming.humanize %>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="card-text ">
+      <%= link to: Routes.api_subscription_url(@conn, :create, @trigger.subscription.id), class: "card-link" do %>
+        <i class="fa fa-anchor"></i>
+      <% end %>
+      <%= link to: Routes.dashboard_subscription_log_path(@conn, :index, @trigger.subscription), class: "card-link" do %>
+        Logs
+      <% end %>
+      <%= link "Delete", to: Routes.dashboard_trigger_path(@conn, :delete, @trigger), method: :delete, data: [confirm: "Are you sure?"], class: "card-link" %>
+    </div>
+  </div>
+</div>

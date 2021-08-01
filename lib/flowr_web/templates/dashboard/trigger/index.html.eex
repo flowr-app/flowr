@@ -1,0 +1,10 @@
+<%= link to: Routes.dashboard_trigger_path(@conn, :new), class: "btn btn-dark btn-sm" do %>
+  <i class="fa fa-plus"></i>
+  New Trigger
+<% end %>
+
+<div class="card-columns pt-3">
+  <%= for trigger <- @triggers do %>
+    <%= render "_#{trigger.category}.html", [conn: @conn, trigger: trigger] %>
+  <% end %>
+</div>

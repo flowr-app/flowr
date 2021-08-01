@@ -1,0 +1,11 @@
+<h3>
+  Task
+  <small>(<%= @task.id %>)</small>
+</h3>
+
+<h4>Input data:</h4>
+<code>
+  <%= @task.input_data |> Jason.encode!(pretty: true) %>
+</code>
+
+<h4>More... <small>(coming soon)</small></h4>

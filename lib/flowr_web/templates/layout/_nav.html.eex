@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #f0f8fc;">
+  <%= link to: Routes.page_path(@conn, :index), class: "navbar-brand" do %>
+    <img src='<%= Routes.static_path(@conn, "/images/logo.svg") %>' width="40" height="40" alt="">
+    Flowr
+  <% end %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <%= if current_customer(@conn) do %>
+        <li class="nav-item">
+          <%= active_link @conn, "Dashboard", to: Routes.dashboard_dashboard_path(@conn, :index), class: "nav-link"%>
+        </li>
+      <% end %>
+      <li class="nav-item">
+        <%= active_link @conn, "Templates", to: Routes.template_path(@conn, :index), class: "nav-link"%>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <%= if current_customer(@conn) do %>
+        <li class="nav-item">
+          <%= active_link @conn, "Developer Console", to: Routes.developer_developer_path(@conn, :index), class: "nav-link"%>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-user"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">
+              Customer: <%= current_customer(@conn).owner_id %>
+            </a>
+            <a class="dropdown-item" href="#">Settings <small>(coming soon)</small></a>
+            <%= link "Sign Out", to: Routes.auth_path(@conn, :delete), method: :delete, class: "dropdown-item" %>
+          </div>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link "Sign In", to: Routes.auth_path(@conn, :new), class: "nav-link", class: "nav-link" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>

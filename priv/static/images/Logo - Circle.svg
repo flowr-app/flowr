@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="250" height="250" viewBox="0 0 250 250">
+  <defs>
+    <filter id="Path_1" x="47.954" y="85.78" width="146.222" height="88.496" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Ellipse_2" x="23" y="66" width="60" height="60" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Ellipse_3" x="157" y="127" width="60" height="60" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-3"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-3"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-Logo_-_Circle">
+      <rect width="250" height="250"/>
+    </clipPath>
+  </defs>
+  <g id="Logo_-_Circle" data-name="Logo - Circle" clip-path="url(#clip-Logo_-_Circle)">
+    <g id="Ellipse_4" data-name="Ellipse 4" transform="translate(19 19)" fill="#f0f8fc" stroke="#dbdbdb" stroke-width="1">
+      <circle cx="106" cy="106" r="106" stroke="none"/>
+      <circle cx="106" cy="106" r="105.5" fill="none"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Path_1)">
+      <path id="Path_1-2" data-name="Path 1" d="M2046.954,96.78h54.995v60.5h73.227" transform="translate(-1990)" fill="none" stroke="#0984bd" stroke-linejoin="round" stroke-width="10"/>
+    </g>
+    <circle id="Ellipse_1" data-name="Ellipse 1" cx="21" cy="21" r="21" transform="translate(32 75)" fill="#ff9802"/>
+    <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Ellipse_2)">
+      <circle id="Ellipse_2-2" data-name="Ellipse 2" cx="21" cy="21" r="21" transform="translate(32 75)" fill="#ff9802"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Ellipse_3)">
+      <circle id="Ellipse_3-2" data-name="Ellipse 3" cx="21" cy="21" r="21" transform="translate(166 136)" fill="#ff9802"/>
+    </g>
+  </g>
+</svg>
