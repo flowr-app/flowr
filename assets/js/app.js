@@ -40,7 +40,7 @@ import "shim-keyboard-event-key";
 import "core-js/features/set";
 
 import { Socket } from "phoenix";
-import LiveSocket from "phoenix_live_view";
+import { LiveSocket } from "phoenix_live_view";
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")

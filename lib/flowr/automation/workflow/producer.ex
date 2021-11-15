@@ -9,14 +9,12 @@ defmodule Flowr.Automation.Workflow.Producer do
   @impl GenStage
   def init(opts) do
     receive_interval = opts[:receive_interval] || @default_receive_interval
-    task_fetcher = TaskFetcher.init([])
 
     {:producer,
      %{
        demand: 0,
        receive_timer: nil,
-       receive_interval: receive_interval,
-       task_fetcher: task_fetcher
+       receive_interval: receive_interval
      }}
   end
 
@@ -35,11 +33,9 @@ defmodule Flowr.Automation.Workflow.Producer do
     {:noreply, [], state}
   end
 
-  defp handle_receive_messages(
-         %{receive_timer: nil, demand: demand, task_fetcher: task_fetcher} = state
-       )
+  defp handle_receive_messages(%{receive_timer: nil, demand: demand} = state)
        when demand > 0 do
-    tasks = TaskFetcher.fetch(demand, task_fetcher)
+    tasks = TaskFetcher.fetch(demand)
     new_demand = demand - length(tasks)
 
     receive_timer =

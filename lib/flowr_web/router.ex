@@ -88,7 +88,12 @@ defmodule FlowrWeb.Router do
   if Mix.env() == :dev do
     scope "/dev" do
       pipe_through :browser
-      live_dashboard "/dashboard", ecto_repos: [Flowr.Repo]
+
+      live_dashboard "/dashboard",
+        ecto_repos: [Flowr.Repo],
+        additional_pages: [
+          broadway: {BroadwayDashboard, pipelines: [Flowr.Automation.Workflow]}
+        ]
     end
   end
 end

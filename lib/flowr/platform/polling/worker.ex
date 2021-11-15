@@ -2,6 +2,7 @@ defmodule Flowr.Platform.Polling.Worker do
   use GenServer
 
   alias Flowr.Platform
+  require Logger
 
   @shcedule_interval 60 * 1_000
 
@@ -24,8 +25,17 @@ defmodule Flowr.Platform.Polling.Worker do
   def fetch_data(polling) do
     client = Flowr.Platform.Client.rest_client(polling.trigger.customer.access_token)
 
-    with {:ok, %RingCentral.Response{data: data}} <- RingCentral.API.get(client, polling.endpoint) do
+    with {:ok, %RingCentral.Response{status: 200, data: data}} <-
+           RingCentral.API.get(client, polling.endpoint) do
       {polling, data["records"]}
+    else
+      {:ok, %RingCentral.Response{status: status, data: data}} ->
+        Logger.warn("Failed to fetch data from API server, status: #{status}, data: #{data}")
+        {polling, []}
+
+      _ ->
+        Logger.warn("Failed to fetch data from API server, will try next attempt.")
+        {polling, []}
     end
   end
 

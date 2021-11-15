@@ -3,7 +3,7 @@ defmodule Flowr.Automation.Workflow.Acknowledger do
 
   alias Flowr.Automation
 
-  def build_acknowledger(task, ack_ref) do
+  def build_acknowledger(ack_ref, task) do
     {__MODULE__, ack_ref, task}
   end
 
@@ -19,7 +19,7 @@ defmodule Flowr.Automation.Workflow.Acknowledger do
     |> Enum.each(fn task -> Automation.finish_task(task, "failed", %{result: "TODO"}) end)
   end
 
-  defp fetch_task(%Broadway.Message{acknowledger: {__MODULE__, _ack_ref, task_id}}) do
+  defp fetch_task(%Broadway.Message{acknowledger: {__MODULE__, task_id, _}}) do
     Flowr.Automation.get_task!(task_id)
   end
 end

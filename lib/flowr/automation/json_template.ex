@@ -34,7 +34,7 @@ defmodule Flowr.Automation.JSONTemplate do
   defp extract_value(value, params) do
     stream =
       Jason.encode!(params)
-      |> List.wrap()
+      |> Jaxon.Stream.from_binary()
 
     json_path = Jaxon.Path.parse!(value)
     result = Jaxon.Stream.query(stream, json_path)
