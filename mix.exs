@@ -52,7 +52,7 @@ defmodule Flowr.Umbrella.MixProject do
       # extra
       {:ringcentral, "~> 0.2"},
       {:finch, "~> 0.9"},
-      {:flow, "~> 1.1.0"},
+      {:flow, "~> 1.2.0"},
       {:broadway, "~> 1.0"},
       {:broadway_dashboard, "~> 0.2.0"},
       {:execjs, "~> 2.0"},

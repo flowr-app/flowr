@@ -1,5 +1,5 @@
 <h1>Edit Connector</h1>
 
-<%= live_component(@conn, FlowrWeb.Live.ConnectorForm, session: %{"connector" => @connector}) %>
+<%= live_render(@conn, FlowrWeb.Live.ConnectorForm, session: %{"connector" => @connector}) %>
 
 <span><%= link "Back", to: Routes.developer_connector_path(@conn, :index) %></span>

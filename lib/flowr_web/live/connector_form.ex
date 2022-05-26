@@ -1,5 +1,5 @@
 defmodule FlowrWeb.Live.ConnectorForm do
-  use Phoenix.LiveComponent
+  use Phoenix.LiveView
 
   alias Flowr.Exterior
   alias Flowr.Exterior.Connector
