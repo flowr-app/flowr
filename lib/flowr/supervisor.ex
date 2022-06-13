@@ -12,7 +12,7 @@ defmodule Flowr.Supervisor do
       {Flowr.Repo, []},
       {Flowr.Automation.Workflow, []},
       {Flowr.Platform.Polling.Worker, []},
-      {Flowr.Accounts.Worker.RefreshTokenWorker, []},
+      {Flowr.Accounts.RefreshTokenBroadway, []},
       {RingCentral.HTTPClient.DefaultClient, []}
     ]
 

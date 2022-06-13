@@ -8,29 +8,12 @@ defmodule Flowr.Accounts do
 
   alias Flowr.Accounts.Customer
 
-  @doc """
-  Returns the list of customers.
-
-  ## Examples
-
-      iex> list_customers()
-      [%Customer{}, ...]
-
-  """
-  def list_customers do
-    Repo.all(Customer)
-  end
-
-  def list_customers(:token_expires_soon) do
-    # buffer for the token
-    five_minutes_later =
-      NaiveDateTime.utc_now()
-      |> NaiveDateTime.add(5 * 60, :second)
+  def list_customers(query, opts \\ []) do
+    limit = Keyword.get(opts, :limit, 100)
 
     query =
-      from q in Customer,
-        where: q.access_token_expires_at < ^five_minutes_later,
-        limit: 100
+      from q in query,
+        limit: ^limit
 
     Repo.all(query)
   end
@@ -154,6 +137,12 @@ defmodule Flowr.Accounts do
 
     customer
     |> Customer.updating_changeset(attrs)
+    |> Repo.update()
+  end
+
+  def update_customer_status(customer, status_attrs) do
+    customer
+    |> Customer.status_changeset(%{"status" => status_attrs})
     |> Repo.update()
   end
 end

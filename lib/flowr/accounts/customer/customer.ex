@@ -2,6 +2,8 @@ defmodule Flowr.Accounts.Customer do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Flowr.Accounts.Customer.Status
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
 
@@ -19,6 +21,8 @@ defmodule Flowr.Accounts.Customer do
     has_many(:flow_tasks, Flowr.Automation.Task)
 
     has_many(:connector_accounts, Flowr.Exterior.Account)
+
+    embeds_one(:status, Status, on_replace: :update)
 
     timestamps()
   end
@@ -55,5 +59,10 @@ defmodule Flowr.Accounts.Customer do
       :access_token_expires_at,
       :refresh_token_expires_at
     ])
+  end
+
+  def status_changeset(customer, attrs) do
+    changeset(customer, attrs)
+    |> cast_embed(:status, required: true)
   end
 end
