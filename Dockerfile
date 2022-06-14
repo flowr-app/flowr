@@ -1,94 +1,92 @@
-ARG MIX_ENV="prod"
+# Find eligible builder and runner images on Docker Hub. We use Ubuntu/Debian instead of
+# Alpine to avoid DNS resolution issues in production.
+#
+# https://hub.docker.com/r/hexpm/elixir/tags?page=1&name=ubuntu
+# https://hub.docker.com/_/ubuntu?tab=tags
+#
+#
+# This file is based on these images:
+#
+#   - https://hub.docker.com/r/hexpm/elixir/tags - for the build image
+#   - https://hub.docker.com/_/debian?tab=tags&page=1&name=bullseye-20210902-slim - for the release image
+#   - https://pkgs.org/ - resource for finding needed packages
+#   - Ex: hexpm/elixir:1.13.4-erlang-25.0.1-debian-bullseye-20210902-slim
+#
+ARG ELIXIR_VERSION=1.13.4
+ARG OTP_VERSION=25.0.1
+ARG DEBIAN_VERSION=bullseye-20210902-slim
 
-# --- build ---
-FROM hexpm/elixir:1.13.4-erlang-25.0.1-alpine-3.16.0 as build
+ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
+ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
+
+FROM ${BUILDER_IMAGE} as builder
 
 # install build dependencies
-RUN apk add --no-cache build-base git python3 curl
+RUN apt-get update -y && apt-get install -y build-essential git \
+    && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
 # prepare build dir
 WORKDIR /app
 
 # install hex + rebar
 RUN mix local.hex --force && \
-  mix local.rebar --force
+    mix local.rebar --force
 
 # set build ENV
-ARG MIX_ENV
-ENV MIX_ENV="${MIX_ENV}"
+ENV MIX_ENV="prod"
 
 # install mix dependencies
 COPY mix.exs mix.lock ./
 RUN mix deps.get --only $MIX_ENV
 RUN mkdir config
 
-# Dependencies sometimes use compile-time configuration. Copying
-# these compile-time config files before we compile dependencies
-# ensures that any relevant config changes will trigger the dependencies
+# copy compile-time config files before we compile dependencies
+# to ensure any relevant config change will trigger the dependencies
 # to be re-compiled.
-COPY config/config.exs config/$MIX_ENV.exs config/
+COPY config/config.exs config/${MIX_ENV}.exs config/
 RUN mix deps.compile
 
-# --- assets-build ---
-FROM node:16.5.0 as assets-build
-
-WORKDIR /app
-COPY --from=build /app ./
-
 COPY priv priv
+
+COPY lib lib
+
 COPY assets assets
-RUN npm install --prefix ./assets
 
-FROM build as build2
-
-WORKDIR /app
-COPY --from=assets-build /app ./
-
+# compile assets
 RUN mix assets.deploy
 
-# compile and build the release
-COPY lib lib
+# Compile the release
 RUN mix compile
-# changes to config/runtime.exs don't require recompiling the code
+
+# Changes to config/runtime.exs don't require recompiling the code
 COPY config/runtime.exs config/
-# uncomment COPY if rel/ exists
-# COPY rel rel
+
+COPY rel rel
 RUN mix release
 
-# --- app ---
-# Start a new build stage so that the final image will only contain
+# start a new build stage so that the final image will only contain
 # the compiled release and other runtime necessities
-FROM alpine:3.14.0 AS app
-RUN apk add --no-cache libstdc++ openssl ncurses-libs
+FROM ${RUNNER_IMAGE}
 
-ARG MIX_ENV
-ENV USER="elixir"
+RUN apt-get update -y && apt-get install -y libstdc++6 openssl libncurses5 locales \
+  && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
-WORKDIR "/home/${USER}/app"
-# Creates an unprivileged user to be used exclusively to run the Phoenix app
-RUN \
-  addgroup \
-  -g 1000 \
-  -S "${USER}" \
-  && adduser \
-  -s /bin/sh \
-  -u 1000 \
-  -G "${USER}" \
-  -h /home/elixir \
-  -D "${USER}" \
-  && su "${USER}"
+# Set the locale
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
 
-# Everything from this line onwards will run in the context of the unprivileged user.
-USER "${USER}"
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 
-COPY --from=build2 --chown="elixir":"elixir" /app/_build/"${MIX_ENV}"/rel/flowr ./
+WORKDIR "/app"
+RUN chown nobody /app
 
-ENTRYPOINT ["bin/flowr"]
+# set runner ENV
+ENV MIX_ENV="prod"
 
-# Usage:
-#  * build: sudo docker image build -t elixir/flowr .
-#  * shell: sudo docker container run --rm -it --entrypoint "" -p 127.0.0.1:4000:4000 elixir/flowr sh
-#  * run:   sudo docker container run --rm -it -p 127.0.0.1:4000:4000 --name my_app elixir/flowr
-#  * exec:  sudo docker container exec -it flowr sh
-#  * logs:  sudo docker container logs --follow --tail 100 flowr
-CMD ["start"]
+# Only copy the final release from the build stage
+COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/flowr ./
+
+USER nobody
+
+CMD ["/app/bin/server"]
