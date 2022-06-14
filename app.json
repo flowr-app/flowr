@@ -1,0 +1,42 @@
+{
+  "name": "Flowr",
+  "description": "Connect RingCentral to Internet services",
+  "repository": "https://github.com/flowr-app/flowr",
+  "keywords": [
+    "elixir",
+    "phoenix",
+    "ringcentral",
+    "flow"
+  ],
+  "env": {
+    "SECRET_KEY_BASE": {
+      "description": "A secret salt for the web application",
+      "generator": "secret"
+    },
+    "POOL_SIZE": {
+      "description": "Postgres database pool size",
+      "value": "18"
+    },
+    "PHX_HOST": {
+      "description": "Your website domain, e.g. www.example.com",
+      "value": "example.com"
+    },
+    "RC_CLIENT_ID": {
+      "description": "RingCentral Developer App's Client ID",
+      "value": "MY_CLIENT_ID"
+    },
+    "RC_CLIENT_SECRET": {
+      "description": "RingCentral Developer App's Client Secret",
+      "value": "MY_SECRET"
+    },
+    "RC_SERVER_URL": {
+      "description": "RingCentral API's endpoint",
+      "value": "https://platform.devtest.ringcentral.com"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql"
+    }
+  ]
+}
