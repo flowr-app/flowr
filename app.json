@@ -34,6 +34,9 @@
       "value": "https://platform.devtest.ringcentral.com"
     }
   },
+  "scripts": {
+    "postdeploy": "/app/bin/flowr eval 'Flowr.Release.migrate'"
+  },
   "addons": [
     {
       "plan": "heroku-postgresql"
