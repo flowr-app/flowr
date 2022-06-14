@@ -23,14 +23,14 @@ FROM ${BUILDER_IMAGE} as builder
 
 # install build dependencies
 RUN apt-get update -y && apt-get install -y build-essential git \
-    && apt-get clean && rm -f /var/lib/apt/lists/*_*
+  && apt-get clean && rm -f /var/lib/apt/lists/*_*
 
 # prepare build dir
 WORKDIR /app
 
 # install hex + rebar
 RUN mix local.hex --force && \
-    mix local.rebar --force
+  mix local.rebar --force
 
 # set build ENV
 ENV MIX_ENV="prod"
@@ -50,7 +50,19 @@ COPY priv priv
 
 COPY lib lib
 
+# --- assets-build ---
+FROM node:16.5.0 as assets-builder
+
+WORKDIR /app
+COPY --from=builder /app ./
+
 COPY assets assets
+RUN npm install --prefix ./assets
+
+FROM builder as builder-with-static-assets
+
+WORKDIR /app
+COPY --from=assets-builder /app ./
 
 # compile assets
 RUN mix assets.deploy
@@ -85,7 +97,7 @@ RUN chown nobody /app
 ENV MIX_ENV="prod"
 
 # Only copy the final release from the build stage
-COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/flowr ./
+COPY --from=builder-with-static-assets --chown=nobody:root /app/_build/${MIX_ENV}/rel/flowr ./
 
 USER nobody
 
