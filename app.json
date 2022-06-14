@@ -37,6 +37,7 @@
   "scripts": {
     "postdeploy": "/app/bin/flowr eval 'Flowr.Release.migrate'"
   },
+  "stack": "container",
   "addons": [
     {
       "plan": "heroku-postgresql"
