@@ -1,7 +1,7 @@
 ARG MIX_ENV="prod"
 
 # --- build ---
-FROM hexpm/elixir:1.12.1-erlang-24.0.2-alpine-3.14.0 as build
+FROM hexpm/elixir:1.13.4-erlang-25.0.1-alpine-3.16.0 as build
 
 # install build dependencies
 RUN apk add --no-cache build-base git python3 curl
@@ -11,7 +11,7 @@ WORKDIR /app
 
 # install hex + rebar
 RUN mix local.hex --force && \
-	mix local.rebar --force
+  mix local.rebar --force
 
 # set build ENV
 ARG MIX_ENV
@@ -67,16 +67,16 @@ ENV USER="elixir"
 WORKDIR "/home/${USER}/app"
 # Creates an unprivileged user to be used exclusively to run the Phoenix app
 RUN \
-	addgroup \
-	-g 1000 \
-	-S "${USER}" \
-	&& adduser \
-	-s /bin/sh \
-	-u 1000 \
-	-G "${USER}" \
-	-h /home/elixir \
-	-D "${USER}" \
-	&& su "${USER}"
+  addgroup \
+  -g 1000 \
+  -S "${USER}" \
+  && adduser \
+  -s /bin/sh \
+  -u 1000 \
+  -G "${USER}" \
+  -h /home/elixir \
+  -D "${USER}" \
+  && su "${USER}"
 
 # Everything from this line onwards will run in the context of the unprivileged user.
 USER "${USER}"
