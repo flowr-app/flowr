@@ -48,6 +48,7 @@ defmodule Flowr.Accounts.Customer do
       :access_token_expires_at,
       :refresh_token_expires_at
     ])
+    |> cast_embed(:status)
     |> unique_constraint(:owner_id)
   end
 

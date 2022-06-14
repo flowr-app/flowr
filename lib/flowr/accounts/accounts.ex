@@ -50,13 +50,16 @@ defmodule Flowr.Accounts do
           NaiveDateTime.utc_now(),
           token["refresh_token_expires_in"],
           :second
-        )
+        ),
+      status: %{
+        active?: true
+      }
     }
 
     %Customer{}
     |> Customer.creation_changeset(attrs)
     |> Repo.insert(
-      on_conflict: [set: attrs |> Enum.to_list()],
+      on_conflict: {:replace_all_except, [:id, :owner_id]},
       conflict_target: :owner_id,
       returning: true
     )
