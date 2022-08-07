@@ -113,11 +113,18 @@ defmodule Flowr.Accounts do
   end
 
   def refresh_token(%Customer{refresh_token: refresh_token} = customer) do
-    with {:ok, %RingCentral{token_info: token}} <-
-           Flowr.Platform.OAuth.refresh_token(refresh_token),
-         {:ok, customer} <- update_customer_from_oauth(customer, token) do
-      {:ok, customer}
-    end
+    Repo.transaction(fn ->
+      with {:ok, token} <-
+             Flowr.Platform.OAuth.refresh_token(refresh_token),
+           {:ok, customer} <- update_customer_from_oauth(customer, token) do
+        {:ok, customer}
+      else
+        {:error, %RingCentral.Error{code: :client_error, detail: %{status: status, data: _data}}}
+        when status in [400] ->
+          # refresh token is invalid, gave up refresh, and mark customer as inactive
+          {:ok, _} = update_customer_status(customer, %{active?: false})
+      end
+    end)
   end
 
   def update_customer_from_oauth(customer, token) do

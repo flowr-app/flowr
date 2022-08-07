@@ -4,7 +4,6 @@ defmodule Flowr.Accounts.RefreshTokenBroadway do
   require Logger
 
   alias Broadway.Message
-  alias Flowr.Accounts
   alias Flowr.Accounts.RefreshTokenBroadway.{Producer, Acknowledger}
 
   def start_link(_opts) do
@@ -13,7 +12,7 @@ defmodule Flowr.Accounts.RefreshTokenBroadway do
       producer: [
         module: {Producer, []},
         transformer: {__MODULE__, :transform, []},
-        concurrency: 2
+        concurrency: 1
       ],
       processors: [
         refresh_token: [concurrency: 2]
@@ -48,12 +47,6 @@ defmodule Flowr.Accounts.RefreshTokenBroadway do
     |> Enum.map(fn %Broadway.Message{data: customer, status: {:failed, err}} = message ->
       Logger.warn("Failed: #{customer.id}")
       Logger.warn("Failed: #{err.detail.status}")
-
-      case err.detail.status do
-        400 ->
-          # refresh token is invalid, gave up refresh, and mark customer as inactive
-          Accounts.update_customer_status(customer, %{active?: false})
-      end
 
       message
     end)

@@ -23,14 +23,26 @@ defmodule Flowr.Platform.Polling.Worker do
   end
 
   def fetch_data(polling) do
+    Logger.debug("Start fetch data for polling: #{polling.id}")
+
     client = Flowr.Platform.Client.rest_client(polling.trigger.customer.access_token)
 
     with {:ok, %RingCentral.Response{status: 200, data: data}} <-
            RingCentral.API.get(client, polling.endpoint) do
       {polling, data["records"]}
     else
+      {:ok, %RingCentral.Response{status: 401, data: %{"errorCode" => "TokenInvalid"}}} ->
+        Logger.warn("Customer access token is invalid.")
+        # Access token invalid, try refresh token
+        Flowr.Accounts.RefreshTokenBroadway.Producer.add_customer(polling.trigger.customer_id)
+
+        {polling, []}
+
       {:ok, %RingCentral.Response{status: status, data: data}} ->
-        Logger.warn("Failed to fetch data from API server, status: #{status}, data: #{data}")
+        Logger.warn(
+          "Failed to fetch data from API server, status: #{status}, data: #{Jason.encode!(data)}"
+        )
+
         {polling, []}
 
       _ ->

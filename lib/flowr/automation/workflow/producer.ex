@@ -28,7 +28,6 @@ defmodule Flowr.Automation.Workflow.Producer do
     handle_receive_messages(%{state | receive_timer: nil})
   end
 
-  @impl GenStage
   def handle_info(_, state) do
     {:noreply, [], state}
   end
