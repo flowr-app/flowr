@@ -7,9 +7,7 @@ defmodule Flowr.Platform do
   import Ecto.Query, warn: false
   alias Flowr.Repo
 
-  alias Flowr.Platform.Subscription
-  alias Flowr.Platform.Polling
-  alias Flowr.Platform.Trigger
+  alias Flowr.Platform.{Subscription, Polling, Webhook, Trigger}
 
   @doc """
   Returns the list of subscriptions.
@@ -279,5 +277,24 @@ defmodule Flowr.Platform do
       conflict_target: [:polling_id, :item_id],
       returning: true
     )
+  end
+
+  # Create webhook
+  def create_webhook(_customer_id, attrs \\ %{}) do
+    changeset =
+      %Webhook{}
+      |> Webhook.creation_changeset(attrs)
+
+    with {:ok, webhook} <- Repo.insert(changeset, read_after_writes: true) do
+      {:ok, webhook}
+    end
+  end
+
+  def get_webhook_by_endpoint_id!(endpoint_id) do
+    query =
+      from w in Webhook,
+        where: w.endpoint_id == ^endpoint_id
+
+    Repo.one!(query)
   end
 end

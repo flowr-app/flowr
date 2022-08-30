@@ -1,7 +1,7 @@
 <div class="card-body">
-  <div class="card-text">
-    <%= link to: Routes.dashboard_polling_item_path(@conn, :index, @trigger.polling), class: "card-link" do %>
-      Items
+  <div class="card-text ">
+    <%= link to: Routes.api_webhook_url(@conn, :create, @trigger.webhook.endpoint_id), class: "card-link" do %>
+      <i class="fa fa-anchor"></i>
     <% end %>
 
     <details>
