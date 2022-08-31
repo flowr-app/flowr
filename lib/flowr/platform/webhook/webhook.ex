@@ -20,8 +20,8 @@ defmodule Flowr.Platform.Webhook do
     field :endpoint_id, :string,
       autogenerate: {Flowr.Platform.Webhook.RandomStringGenerator, :generate, []}
 
-    belongs_to(:trigger, Flowr.Platform.Trigger)
-    # has_many(:logs, Flowr.Platform.Webhook.Log, foreign_key: :webhook_id)
+    belongs_to :trigger, Flowr.Platform.Trigger
+    has_many :logs, Flowr.Platform.Webhook.Log, foreign_key: :webhook_id
 
     timestamps()
   end

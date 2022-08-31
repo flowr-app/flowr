@@ -19,7 +19,12 @@ defmodule FlowrWeb.Live.FlowForm do
     triggers_for_select =
       current_customer
       |> Flowr.Platform.list_triggers()
-      |> Enum.map(fn trigger -> {trigger.name, trigger.id} end)
+      |> Enum.map(fn trigger ->
+        {
+          "#{trigger.name} (#{trigger.category})",
+          trigger.id
+        }
+      end)
 
     connector_accounts_for_select =
       current_customer

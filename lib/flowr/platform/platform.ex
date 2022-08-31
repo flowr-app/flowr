@@ -5,8 +5,9 @@ defmodule Flowr.Platform do
 
   import Ecto
   import Ecto.Query, warn: false
-  alias Flowr.Repo
 
+  alias Ecto.Multi
+  alias Flowr.Repo
   alias Flowr.Platform.{Subscription, Polling, Webhook, Trigger}
 
   @doc """
@@ -296,5 +297,17 @@ defmodule Flowr.Platform do
         where: w.endpoint_id == ^endpoint_id
 
     Repo.one!(query)
+  end
+
+  def create_webhook_log(webhook, attrs \\ %{}) do
+    changeset =
+      webhook
+      |> build_assoc(:logs)
+      |> Flowr.Platform.Webhook.Log.changeset(attrs)
+
+    with {:ok, webhook_log} <- Repo.insert(changeset, read_after_writes: true),
+         :ok <- Flowr.Automation.Trigger.create_tasks(webhook_log) do
+      {:ok, webhook_log}
+    end
   end
 end
