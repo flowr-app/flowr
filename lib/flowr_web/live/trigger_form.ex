@@ -31,9 +31,11 @@ defmodule FlowrWeb.Live.TriggerForm do
   end
 
   def handle_event("save", %{"trigger" => trigger_params}, socket) do
+    IO.inspect(trigger_params)
+
     case Platform.create_trigger(socket.assigns.current_customer.id, trigger_params) do
       {:ok, _trigger} ->
-        {:stop,
+        {:noreply,
          socket
          |> put_flash(:info, "trigger created")
          |> redirect(

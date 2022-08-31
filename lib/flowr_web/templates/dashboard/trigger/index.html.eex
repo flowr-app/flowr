@@ -5,6 +5,24 @@
 
 <div class="card-columns pt-3">
   <%= for trigger <- @triggers do %>
-    <%= render "_#{trigger.category}.html", [conn: @conn, trigger: trigger] %>
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex w-100 justify-content-between">
+          <span>
+            <i class="fa fa-bolt"></i>
+            <%= trigger.name %>
+          </span>
+          <div>
+            <span class="badge badge-info">
+              <i class="fa fa-rss"></i>
+              <%= trigger.category |> Phoenix.Naming.humanize %>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <%= render "_#{trigger.category}.html", [conn: @conn, trigger: trigger] %>
+
+    </div>
   <% end %>
 </div>

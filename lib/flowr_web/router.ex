@@ -82,6 +82,7 @@ defmodule FlowrWeb.Router do
     pipe_through :api
 
     post("/subscriptions/:id/", SubscriptionController, :create)
+    post("/webhook/:id/", WebhookController, :create)
     get("/connectors/callback", ConnectorAccountController, :callback)
   end
 

@@ -6,6 +6,7 @@ config :flowr, Flowr.Repo,
   password: "postgres",
   database: "flowr_dev",
   hostname: "localhost",
+  stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
@@ -16,17 +17,14 @@ config :flowr, Flowr.Repo,
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :flowr, FlowrWeb.Endpoint,
-  http: [port: 4000],
-  debug_errors: true,
-  code_reloader: true,
+  http: [ip: {127, 0, 0, 1}, port: 4000],
   check_origin: false,
+  code_reloader: true,
+  debug_errors: true,
+  secret_key_base: "BarnHUUFFgsi7RRPcjX5BS3KfVL5pMCpmPyd5FlSgfgCA1nwu6TiTsH6YF91sa7J",
   watchers: [
-    mix: [
-      "esbuild",
-      "default",
-      "--sourcemap=inline",
-      "--watch"
-    ]
+    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
   ]
 
 # ## SSL Support
@@ -60,8 +58,7 @@ config :flowr, FlowrWeb.Endpoint,
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/flowr_web/{live,views}/.*(ex)$",
-      ~r"lib/flowr_web/templates/.*(eex)$",
-      ~r{lib/flowr_web/live/.*(ex)$}
+      ~r"lib/flowr_web/templates/.*(eex)$"
     ]
   ]
 

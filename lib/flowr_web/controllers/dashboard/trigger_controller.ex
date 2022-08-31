@@ -7,7 +7,7 @@ defmodule FlowrWeb.Dashboard.TriggerController do
   def index(conn, _params) do
     triggers =
       Platform.list_triggers(conn.assigns.current_customer)
-      |> Flowr.Repo.preload([:polling, :subscription])
+      |> Flowr.Repo.preload([:polling, :subscription, :webhook])
 
     render(conn, "index.html", triggers: triggers)
   end
