@@ -1,0 +1,20 @@
+<div>
+  <span>
+    <%= link to: Routes.developer_connector_path(@conn, :new), class: "btn btn-dark btn-sm" do %>
+      <i class="fa fa-plus"></i>
+      New Connector (Builtin)
+    <% end %>
+  </span>
+  <span>
+    <%= link to: Routes.developer_connector_path(@conn, :new, adapter: "dynamic"), class: "btn btn-dark btn-sm" do %>
+      <i class="fa fa-plus"></i>
+      New Connector (Dynamic)
+    <% end %>
+  </span>
+</div>
+
+<div class="row mt-3">
+  <%= for connector <- @connectors do %>
+    <%= render "_#{connector.adapter_name}.html", [conn: @conn, connector: connector] %>
+  <% end %>
+</div>

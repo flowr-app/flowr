@@ -1,4 +1,4 @@
-defmodule Flowr.Exterior.Connector.Behaviour do
+defmodule Flowr.Exterior.Connector.Behaviour.Dynamic do
   @type map_with_string_keys :: %{optional(binary()) => any}
 
   @callback functions() :: [binary()]

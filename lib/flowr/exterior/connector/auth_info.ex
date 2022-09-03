@@ -17,8 +17,7 @@ defmodule Flowr.Exterior.Connector.AuthInfo do
 
   @derive Jason.Encoder
 
-  @primary_key {:id, :binary_id, autogenerate: true}
-  @foreign_key_type :binary_id
+  @primary_key false
 
   embedded_schema do
     field :auth_type, :string

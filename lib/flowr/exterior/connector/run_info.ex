@@ -15,20 +15,20 @@ defmodule Flowr.Exterior.Connector.RunInfo do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @primary_key {:id, :binary_id, autogenerate: true}
-  @foreign_key_type :binary_id
+  @primary_key false
 
   embedded_schema do
-    field :adapter, :string
+    # dynamic
     field :source_code, :string
+    # aws_lambda
     field :lambda_url, :map
+    # builtin
+    field :builtin_connector_id, :string
   end
 
   @doc false
   def changeset(auth, attrs) do
     auth
-    |> cast(attrs, [:adapter, :source_code, :lambda_url])
-    |> validate_required([:adapter])
-    |> validate_inclusion(:adapter, Flowr.Automation.Runner.Adapter.adapters())
+    |> cast(attrs, [:source_code, :lambda_url, :builtin_connector_id])
   end
 end

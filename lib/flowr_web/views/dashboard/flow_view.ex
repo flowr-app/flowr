@@ -22,7 +22,8 @@ defmodule FlowrWeb.Dashboard.FlowView do
       connector_id ->
         connector = Flowr.Exterior.get_connector!(connector_id)
 
-        connector.functions
+        connector
+        |> Flowr.Exterior.Connector.get_functions()
         |> Enum.map(fn function -> {function.name, function.name} end)
     end
   end
@@ -52,7 +53,8 @@ defmodule FlowrWeb.Dashboard.FlowView do
     connector = Flowr.Exterior.get_connector!(connector_id)
 
     fun =
-      connector.functions
+      connector
+      |> Flowr.Exterior.Connector.get_functions()
       |> Enum.find(%{arg_template: %{}}, fn f ->
         function_id == f.name
       end)

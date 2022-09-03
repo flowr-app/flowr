@@ -1,4 +1,4 @@
-defmodule Flowr.Automation.Runner.Adapter.Local do
+defmodule Flowr.Automation.Runner.Adapter.Dynamic do
   @behaviour Flowr.Automation.Runner.Adapter
 
   require Logger
@@ -7,7 +7,7 @@ defmodule Flowr.Automation.Runner.Adapter.Local do
 
   @impl true
   def run(%Run{connector: connector} = run, args) do
-    Logger.info("[Local Runner] Running #{inspect(run)} with args: #{inspect(args)}")
+    Logger.info("[Runner - Dynamic] Running #{inspect(run)} with args: #{inspect(args)}")
 
     # `mod` will implement `Flowr.Exterior.Connector.Behaviour`
     [{mod, _}] = Code.compile_string(connector.run_info.source_code)

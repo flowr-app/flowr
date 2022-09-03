@@ -5,7 +5,9 @@ defmodule FlowrWeb.Live.ConnectorForm do
   alias Flowr.Exterior.Connector
 
   def render(assigns) do
-    FlowrWeb.Developer.ConnectorView.render("form.html", assigns)
+    adapter_name = assigns.changeset.data.adapter_name
+
+    FlowrWeb.Developer.ConnectorView.render("form_#{adapter_name}.html", assigns)
   end
 
   def mount(:not_mounted_at_router, %{"connector" => connector}, socket) do

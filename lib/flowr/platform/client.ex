@@ -21,14 +21,18 @@ defmodule Flowr.Platform.Client do
   end
 
   defp client_id do
-    System.get_env("RC_CLIENT_ID")
+    app_config()[:client_id]
   end
 
   defp client_secret do
-    System.get_env("RC_CLIENT_SECRET")
+    app_config()[:client_secret]
   end
 
   defp server_url do
-    System.get_env("RC_SERVER_URL", "https://platform.devtest.ringcentral.com")
+    app_config()[:server_url]
+  end
+
+  defp app_config do
+    Application.get_env(:flowr, Flowr.Platform.Client)
   end
 end

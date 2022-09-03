@@ -50,7 +50,7 @@ defmodule Flowr.Umbrella.MixProject do
       {:phoenix_bootstrap_form, "~> 0.1.0"},
 
       # extra
-      {:ringcentral, "~> 0.2"},
+      {:ringcentral, "~> 0.2", github: "ringcentral-elixir/ringcentral_elixir"},
       {:finch, "~> 0.9"},
       {:flow, "~> 1.2.0"},
       {:broadway, "~> 1.0"},

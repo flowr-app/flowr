@@ -4,7 +4,7 @@ defmodule Flowr.Platform.Polling.Worker do
   alias Flowr.Platform
   require Logger
 
-  @shcedule_interval 60 * 1_000
+  @schedule_interval 60 * 1_000
 
   def start_link(_opts) do
     GenServer.start_link(__MODULE__, [], name: __MODULE__)
@@ -38,15 +38,18 @@ defmodule Flowr.Platform.Polling.Worker do
 
         {polling, []}
 
-      {:ok, %RingCentral.Response{status: status, data: data}} ->
+      {:ok, %RingCentral.Response{status: status, data: data}} when status >= 500 ->
         Logger.warn(
-          "Failed to fetch data from API server, status: #{status}, data: #{Jason.encode!(data)}"
+          "Server 5xx, failed to fetch data from API server, status: #{status}, data: #{Jason.encode!(data)}"
         )
 
         {polling, []}
 
-      _ ->
-        Logger.warn("Failed to fetch data from API server, will try next attempt.")
+      {:error, err} ->
+        Logger.warn(
+          "Failed to fetch data from API server, error: #{inspect(err)} will try next attempt."
+        )
+
         {polling, []}
     end
   end
@@ -77,6 +80,6 @@ defmodule Flowr.Platform.Polling.Worker do
   end
 
   defp schedule_work do
-    Process.send_after(self(), :work, @shcedule_interval)
+    Process.send_after(self(), :work, @schedule_interval)
   end
 end

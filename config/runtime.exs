@@ -46,4 +46,28 @@ if config_env() == :prod do
       port: port
     ],
     secret_key_base: secret_key_base
+
+  # RC client
+  rc_client_id =
+    System.get_env("RC_CLIENT_ID") ||
+      raise """
+      environment variable RC_CLIENT_ID is missing.
+      """
+
+  rc_client_secret =
+    System.get_env("RC_CLIENT_SECRET") ||
+      raise """
+      environment variable RC_CLIENT_SECRET is missing.
+      """
+
+  rc_server_url =
+    System.get_env("RC_SERVER_URL") ||
+      raise """
+      environment variable RC_SERVER_URL is missing.
+      """
+
+  config :flowr, Flowr.Platform.Client,
+    client_id: rc_client_id,
+    client_secret: rc_client_secret,
+    server_url: rc_server_url
 end

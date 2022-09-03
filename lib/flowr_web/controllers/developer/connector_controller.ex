@@ -9,39 +9,27 @@ defmodule FlowrWeb.Developer.ConnectorController do
     render(conn, "index.html", connectors: connectors)
   end
 
-  def new(conn, _params) do
-    connector = %Connector{
-      auth: %Flowr.Exterior.Connector.AuthInfo{
-        auth_type: "oauth2",
-        connection_info: %{
-          "authorize" => %{
-            "url" => "https://www.dropbox.com/oauth2/authorize",
-            "params" => %{
-              "client_id" => "<%= config[\"app_key\"] %>",
-              "redirect_uri" => "<%= meta.redirect_uri %>",
-              "response_type" => "code",
-              "state" => "<%= meta.state %>"
-            }
-          },
-          "get_token" => %{
-            "url" => "https://api.dropboxapi.com/oauth2/token",
-            "method" => "POST",
-            "body" => %{
-              "code" => "<%= input.code %>",
-              "grant_type" => "authorization_code",
-              "client_id" => "<%= config[\"app_key\"] %>",
-              "client_secret" => "<%= config[\"app_secret\"] %>",
-              "redirect_uri" => "<%= meta.redirect_uri %>"
-            },
-            "headers" => %{
-              "content-type" => "application/x-www-form-urlencoded"
-            }
-          }
-        }
-      }
-    }
+  def new(conn, %{"adapter" => adapter}) do
+    default_connector_params =
+      case adapter do
+        "dynamic" ->
+          Exterior.Connector.Dynamic.default_connector_params()
+
+        "builtin" ->
+          Exterior.Connector.Builtin.default_connector_params()
+
+        _ ->
+          Exterior.Connector.Builtin.default_connector_params()
+      end
+
+    connector = struct(%Connector{}, default_connector_params)
 
     render(conn, "new.html", connector: connector)
+  end
+
+  def new(conn, _) do
+    conn
+    |> redirect(to: Routes.developer_connector_path(conn, :new, adapter: "local"))
   end
 
   def create(conn, %{"connector" => connector_params}) do

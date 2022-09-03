@@ -5,11 +5,8 @@ defmodule Flowr.Platform.OAuth do
     Client.oauth_client()
   end
 
-  def authorize_url do
-    {:ok, location} =
-      RingCentral.OAuth.authorize(client(), %{response_type: "code", redirect_uri: redirect_url()})
-
-    location
+  def get_authorize_url do
+    RingCentral.OAuth.authorize(client(), %{response_type: "code", redirect_uri: redirect_url()})
   end
 
   def get_token(code) do

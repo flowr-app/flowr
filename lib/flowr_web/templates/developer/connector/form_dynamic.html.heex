@@ -1,4 +1,4 @@
-<%= f = form_for @changeset, "#", [phx_submit: :save] %>
+<.form let={f} for={@changeset} phx-submit="save" %>
   <%= PBF.text_input f, :name %>
   <%= PBF.textarea f, :description %>
 
@@ -17,18 +17,17 @@
     </fieldset>
   <% end %>
 
-  <button type="button" phx-click="add_function" class="btn btn-secondary">+</button>
+  <button type="button" phx-click="add_function" class="btn btn-secondary">+ Add function</button>
 
-  <h2>Run Info</h2>
+  <h2>Runner</h2>
   <%= inputs_for f, :run_info, fn run_info_f -> %>
-    <%= PBF.select run_info_f, :adapter, Flowr.Automation.Runner.Adapter.adapters %>
     <%= PBF.textarea run_info_f, :source_code %>
   <% end %>
 
-  <h2>Config</h2>
+  <h2>Connector Config</h2>
   <%= json_textarea f, :config %>
 
   <div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </div>
-</form>
+</.form>

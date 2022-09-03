@@ -73,3 +73,14 @@ config :phoenix, :plug_init_mode, :runtime
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
+
+# Secret configurations
+#
+# Example:
+#
+#   config :flowr, Flowr.Platform.Client,
+#     client_id: "CLIENT_ID",
+#     client_secret: "CLIENT_SECRET",
+#     server_url: "https://platform.devtest.ringcentral.com"
+
+import_config "#{config_env()}.secret.exs"

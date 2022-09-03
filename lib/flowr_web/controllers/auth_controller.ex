@@ -4,10 +4,16 @@ defmodule FlowrWeb.AuthController do
   alias Flowr.Platform.OAuth
 
   def new(conn, _params) do
-    authorize_url = OAuth.authorize_url()
+    case OAuth.get_authorize_url() do
+      {:ok, authorize_url} ->
+        conn
+        |> redirect(external: authorize_url)
 
-    conn
-    |> redirect(external: authorize_url)
+      {:error, _} ->
+        conn
+        |> put_flash(:error, "Cannot get a OAuth URL")
+        |> redirect(to: "/")
+    end
   end
 
   def callback(conn, params) do

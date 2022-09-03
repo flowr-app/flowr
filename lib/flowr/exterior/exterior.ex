@@ -99,8 +99,8 @@ defmodule Flowr.Exterior do
       %Ecto.Changeset{source: %Connector{}}
 
   """
-  def change_connector(%Connector{} = connector) do
-    Connector.changeset(connector, %{})
+  def change_connector(%Connector{} = connector, args \\ %{}) do
+    Connector.changeset(connector, args)
   end
 
   alias Flowr.Exterior.Account

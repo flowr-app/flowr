@@ -8,6 +8,7 @@ defmodule Flowr.Exterior.Connector do
   schema "connectors" do
     field :name, :string
     field :description, :string
+    field :adapter_name, :string, default: Flowr.Automation.Runner.Adapter.default_adapter()
 
     field :config, :map,
       default: %{
@@ -22,12 +23,26 @@ defmodule Flowr.Exterior.Connector do
     timestamps()
   end
 
+  def get_functions(%__MODULE__{
+        adapter_name: "builtin",
+        run_info: %{builtin_connector_id: builtin_connector_id}
+      }) do
+    builtin_connector_id
+    |> Flowr.Exterior.Connector.Builtin.get_connector_module()
+    |> apply(:functions, [])
+  end
+
+  def get_functions(%__MODULE__{adapter_name: _} = connector) do
+    connector.functions
+  end
+
   @doc false
   def changeset(connector, attrs) do
     connector
-    |> cast(filter(attrs), [:name, :config, :description])
+    |> cast(filter(attrs), [:name, :adapter_name, :config, :description])
     |> validate_required([:name, :config])
-    |> cast_embed(:auth, with: &Flowr.Exterior.Connector.AuthInfo.changeset/2, required: true)
+    |> validate_inclusion(:adapter_name, Flowr.Automation.Runner.Adapter.adapters())
+    |> cast_embed(:auth, with: &Flowr.Exterior.Connector.AuthInfo.changeset/2, required: false)
     |> cast_embed(:run_info, with: &Flowr.Exterior.Connector.RunInfo.changeset/2, required: true)
     |> cast_embed(:functions, with: &Flowr.Exterior.Connector.Function.changeset/2)
   end

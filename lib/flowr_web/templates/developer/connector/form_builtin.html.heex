@@ -1,0 +1,17 @@
+<.form let={f} for={@changeset} phx-submit="save" %>
+  <%= PBF.text_input f, :name %>
+  <%= PBF.textarea f, :description %>
+  <%= hidden_input f, :adapter_name %>
+
+  <h2>Run Info</h2>
+  <%= inputs_for f, :run_info, fn run_info_f -> %>
+    <%= PBF.select run_info_f, :builtin_connector_id, Flowr.Exterior.Connector.Builtin.builtin_connectors() %>
+  <% end %>
+
+  <h2>Config</h2>
+  <%= json_textarea f, :config %>
+
+  <div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</.form>

@@ -17,12 +17,10 @@ defmodule Flowr.Automation.Runner do
     }
 
     Logger.info(
-      "Running: #{connector.id}, account: #{account.id}, function: #{action.function}, args: #{
-        inspect(args)
-      }"
+      "Running: #{connector.id}, account: #{account.id}, function: #{action.function}, args: #{inspect(args)}"
     )
 
-    adapter = Flowr.Automation.Runner.Adapter.adapter_for(connector.run_info.adapter)
+    adapter = Flowr.Automation.Runner.Adapter.adapter_for(connector.adapter_name)
 
     adapter.run(run, args)
   end
