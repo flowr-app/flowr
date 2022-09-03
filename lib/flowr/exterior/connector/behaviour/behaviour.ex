@@ -1,6 +1,6 @@
 defmodule Flowr.Exterior.Connector.Behaviour do
   alias Flowr.Exterior.Connector.Behaviour.Builtin
-  alias Flowr.Exterior.Connector.Behaviour.Source
+  alias Flowr.Exterior.Connector.Behaviour.Dynamic
 
   defmacro __using__(:builtin) do
     quote do
