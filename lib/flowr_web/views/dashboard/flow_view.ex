@@ -7,9 +7,7 @@ defmodule FlowrWeb.Dashboard.FlowView do
   end
 
   def connector_accounts_options(conn) do
-    customer = Plug.Conn.get_session(conn, :current_customer)
-
-    customer
+    conn.assigns.current_customer
     |> Flowr.Exterior.list_accounts()
     |> Enum.map(fn account -> {account.name, account.id} end)
   end

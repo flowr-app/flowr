@@ -4,7 +4,7 @@ defmodule FlowrWeb.Dashboard.FlowTaskController do
   alias Flowr.Automation
 
   def index_all(conn, _params) do
-    current_customer = get_session(conn, :current_customer)
+    current_customer = conn.assigns.current_customer
     flow_tasks = Automation.list_flow_tasks(current_customer)
     render(conn, "index_all.html", flow_tasks: flow_tasks)
   end

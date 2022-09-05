@@ -10,17 +10,19 @@ defmodule FlowrWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :put_root_layout, {FlowrWeb.LayoutView, :root}
+    plug FlowrWeb.Plugs.SetCurrentCustomer
   end
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  pipeline :dashboard_layout do
+  pipeline :dashboard do
+    plug FlowrWeb.Plugs.AuthenticateCustomer
     plug :put_layout, {FlowrWeb.LayoutView, :dashboard}
   end
 
-  pipeline :developer_layout do
+  pipeline :developer do
     plug :put_layout, {FlowrWeb.LayoutView, :developer}
   end
 
@@ -32,7 +34,7 @@ defmodule FlowrWeb.Router do
     resources "/templates", TemplateController
 
     scope "/developer", as: :developer, alias: Developer do
-      pipe_through :developer_layout
+      pipe_through :developer
 
       get "/", DeveloperController, :index
 
@@ -40,7 +42,7 @@ defmodule FlowrWeb.Router do
     end
 
     scope "/dashboard", as: :dashboard, alias: Dashboard do
-      pipe_through [:dashboard_layout]
+      pipe_through [:dashboard]
 
       get "/", DashboardController, :index
 

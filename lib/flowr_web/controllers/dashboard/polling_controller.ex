@@ -5,7 +5,7 @@ defmodule FlowrWeb.Dashboard.PollingController do
   alias Flowr.Platform.Polling
 
   def index(conn, _params) do
-    pollings = Platform.list_pollings(current_customer(conn))
+    pollings = Platform.list_pollings(conn.assigns.current_customer)
     render(conn, "index.html", pollings: pollings)
   end
 
@@ -15,7 +15,7 @@ defmodule FlowrWeb.Dashboard.PollingController do
   end
 
   def create(conn, %{"polling" => polling_params}) do
-    customer = current_customer(conn)
+    customer = conn.assigns.current_customer
 
     case Platform.create_polling(customer.id, polling_params) do
       {:ok, _polling} ->
@@ -35,9 +35,5 @@ defmodule FlowrWeb.Dashboard.PollingController do
     conn
     |> put_flash(:info, "Polling deleted successfully.")
     |> redirect(to: Routes.dashboard_polling_path(conn, :index))
-  end
-
-  defp current_customer(conn) do
-    get_session(conn, :current_customer)
   end
 end

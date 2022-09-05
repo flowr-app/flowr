@@ -3,6 +3,6 @@ defmodule FlowrWeb.LayoutView do
 
   @spec current_customer(Plug.Conn.t()) :: Flowr.Accounts.Customer.t()
   def current_customer(conn) do
-    Plug.Conn.get_session(conn, :current_customer)
+    conn.assigns[:current_customer]
   end
 end

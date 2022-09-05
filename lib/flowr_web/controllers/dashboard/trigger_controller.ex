@@ -39,15 +39,4 @@ defmodule FlowrWeb.Dashboard.TriggerController do
     |> put_flash(:info, "Trigger deleted successfully.")
     |> redirect(to: Routes.dashboard_trigger_path(conn, :index))
   end
-
-  def action(conn, _) do
-    customer = get_session(conn, :current_customer)
-
-    conn =
-      conn
-      |> assign(:current_customer, customer)
-
-    args = [conn, conn.params]
-    apply(__MODULE__, action_name(conn), args)
-  end
 end

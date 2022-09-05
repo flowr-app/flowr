@@ -5,10 +5,9 @@ defmodule FlowrWeb.Dashboard.FlowController do
   alias Flowr.Automation.Flow
 
   def index(conn, _params) do
-    customer = get_session(conn, :current_customer)
-
     flows =
-      Automation.list_flows(customer)
+      conn.assigns.current_customer
+      |> Automation.list_flows()
       |> Flowr.Repo.preload(:trigger)
 
     render(conn, "index.html", flows: flows)
@@ -20,9 +19,7 @@ defmodule FlowrWeb.Dashboard.FlowController do
   end
 
   def create(conn, %{"flow" => flow_params}) do
-    customer = get_session(conn, :current_customer)
-
-    case Automation.create_flow(customer, flow_params) do
+    case Automation.create_flow(conn.assigns.current_customer, flow_params) do
       {:ok, _flow} ->
         conn
         |> put_flash(:info, "Flow created successfully.")
@@ -67,16 +64,5 @@ defmodule FlowrWeb.Dashboard.FlowController do
     conn
     |> put_flash(:info, "Flow deleted successfully.")
     |> redirect(to: Routes.dashboard_flow_path(conn, :index))
-  end
-
-  def action(conn, _) do
-    customer = get_session(conn, :current_customer)
-
-    conn =
-      conn
-      |> assign(:current_customer, customer)
-
-    args = [conn, conn.params]
-    apply(__MODULE__, action_name(conn), args)
   end
 end

@@ -9,9 +9,9 @@ defmodule FlowrWeb.AuthController do
         conn
         |> redirect(external: authorize_url)
 
-      {:error, _} ->
+      {:error, err} ->
         conn
-        |> put_flash(:error, "Cannot get a OAuth URL")
+        |> put_flash(:error, "Cannot initial an OAuth request, error: #{inspect(err)}")
         |> redirect(to: "/")
     end
   end
@@ -21,7 +21,7 @@ defmodule FlowrWeb.AuthController do
          {:ok, token} <- OAuth.get_token(code),
          {:ok, customer} <- Flowr.Accounts.create_customer_from_oauth_token(token) do
       conn
-      |> put_session(:current_customer, customer)
+      |> put_session(:current_customer_id, customer.id)
       |> redirect(to: Routes.dashboard_dashboard_path(conn, :index))
     end
   end
@@ -29,7 +29,7 @@ defmodule FlowrWeb.AuthController do
   @spec delete(Plug.Conn.t(), any()) :: Plug.Conn.t()
   def delete(conn, _params) do
     conn
-    |> delete_session(:current_customer)
+    |> delete_session(:current_customer_id)
     |> put_flash(:info, "Sign out successfully.")
     |> redirect(to: Routes.page_path(conn, :index))
   end

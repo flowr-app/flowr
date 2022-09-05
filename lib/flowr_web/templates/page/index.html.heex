@@ -1,6 +1,6 @@
 <div class="container text-center">
   <div>
-    <img src='<%= Routes.static_path(@conn, "/images/logo.svg") %>' alt="">
+    <img src={Routes.static_path(@conn, "/images/logo.svg")} alt="">
   </div>
   <h1 class="display-3">
     Flowr
@@ -13,21 +13,21 @@
 <div class="container pt-4">
   <div class="card-deck">
     <div class="card p-2">
-      <img src="<%= Routes.static_path(@conn, "/images/intro-1.jpg") %>" class="card-img-top" alt="Drive efficiency">
+      <img src={Routes.static_path(@conn, "/images/intro-1.jpg")} class="card-img-top" alt="Drive efficiency">
       <div class="card-body">
         <h5 class="card-title">Connect</h5>
         <p class="card-text">Make the most of RingCentral data you already have. Connecting to houndards of cloud based services.</p>
       </div>
     </div>
     <div class="card p-2">
-      <img src="<%= Routes.static_path(@conn, "/images/intro-2.png") %>" class="card-img-top" alt="...">
+      <img src={Routes.static_path(@conn, "/images/intro-2.png")} class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">Build once, run forever</h5>
         <p class="card-text">Come up with a new idea? Use the powerful editor to build a flow in minutes, then leave it alone, it will runs forever.</p>
       </div>
     </div>
     <div class="card p-2">
-      <img src="<%= Routes.static_path(@conn, "/images/intro-3.jpg") %>" class="card-img-top" alt="...">
+      <img src={Routes.static_path(@conn, "/images/intro-3.jpg")} class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">Secure</h5>
         <p class="card-text">Your sensitive data will be ship directly from RingCentral to your Cloud, no other third-party service in the middle.</p>

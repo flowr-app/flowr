@@ -5,7 +5,10 @@ defmodule FlowrWeb.Dashboard.SubscriptionController do
   alias Flowr.Platform.Subscription
 
   def index(conn, _params) do
-    subscriptions = Platform.list_subscriptions(current_customer(conn))
+    subscriptions =
+      conn.assigns.current_customer
+      |> Platform.list_subscriptions()
+
     render(conn, "index.html", subscriptions: subscriptions)
   end
 
@@ -15,7 +18,7 @@ defmodule FlowrWeb.Dashboard.SubscriptionController do
   end
 
   def create(conn, %{"subscription" => subscription_params}) do
-    customer = current_customer(conn)
+    customer = conn.assigns.current_customer
 
     case Platform.create_subscription(customer.id, subscription_params) do
       {:ok, _subscription} ->
@@ -60,9 +63,5 @@ defmodule FlowrWeb.Dashboard.SubscriptionController do
     conn
     |> put_flash(:info, "Subscription deleted successfully.")
     |> redirect(to: Routes.dashboard_subscription_path(conn, :index))
-  end
-
-  defp current_customer(conn) do
-    get_session(conn, :current_customer)
   end
 end

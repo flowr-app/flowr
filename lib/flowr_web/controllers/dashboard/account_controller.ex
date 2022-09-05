@@ -5,10 +5,9 @@ defmodule FlowrWeb.Dashboard.AccountController do
   alias Flowr.Exterior.Account
 
   def index(conn, _params) do
-    customer = get_session(conn, :current_customer)
-
     connector_accounts =
-      Exterior.list_accounts(customer)
+      conn.assigns.current_customer
+      |> Exterior.list_accounts()
       |> Flowr.Repo.preload(:connector)
 
     render(conn, "index.html", connector_accounts: connector_accounts)
@@ -20,9 +19,7 @@ defmodule FlowrWeb.Dashboard.AccountController do
   end
 
   def create(conn, %{"account" => account_params}) do
-    customer = get_session(conn, :current_customer)
-
-    case Exterior.create_account(customer, account_params) do
+    case Exterior.create_account(conn.assigns.current_customer, account_params) do
       {:ok, _account} ->
         conn
         |> put_flash(:info, "Account created successfully.")
