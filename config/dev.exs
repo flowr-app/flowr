@@ -75,12 +75,22 @@ config :phoenix, :plug_init_mode, :runtime
 config :phoenix, :stacktrace_depth, 20
 
 # Secret configurations
-#
-# Example:
-#
-#   config :flowr, Flowr.Platform.Client,
-#     client_id: "CLIENT_ID",
-#     client_secret: "CLIENT_SECRET",
-#     server_url: "https://platform.devtest.ringcentral.com"
+example_secret_config = ~S"""
+import Config
 
-import_config "#{config_env()}.secret.exs"
+config :flowr, Flowr.Platform.Client,
+  client_id: "CLIENT_ID",
+  client_secret: "CLIENT_SECRET",
+  server_url: "https://platform.devtest.ringcentral.com"
+"""
+
+secret_config_filename = "#{config_env()}.secret.exs"
+secret_config_filepath = Path.expand("config/#{secret_config_filename}")
+
+if File.exists?(secret_config_filepath) do
+  import_config secret_config_filename
+else
+  IO.warn(
+    "Please create a file: `#{secret_config_filepath}` with content: \n #{example_secret_config}\n"
+  )
+end
