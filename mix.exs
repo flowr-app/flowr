@@ -54,7 +54,7 @@ defmodule Flowr.Umbrella.MixProject do
       {:finch, "~> 0.9"},
       {:flow, "~> 1.2.0"},
       {:broadway, "~> 1.0"},
-      {:broadway_dashboard, "~> 0.2.0"},
+      {:broadway_dashboard, "~> 0.3.0"},
       {:execjs, "~> 2.0"},
       {:jaxon, "~> 2.0"},
       {:json_xema, "~> 0.1"},
