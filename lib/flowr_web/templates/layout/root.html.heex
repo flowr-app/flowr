@@ -5,7 +5,9 @@
 
     <%= csrf_meta_tag() %>
 
-    <%= live_title_tag assigns[:page_title] || "Flowr" %>
+    <.live_title>
+      <%= assigns[:page_title] || "Flowr" %>
+    </.live_title>
 
     <link rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")} />
 

@@ -45,8 +45,8 @@ defmodule Flowr.Umbrella.MixProject do
 
       # phx extra
       {:phoenix_active_link, "~> 0.3.0"},
-      {:phoenix_live_view, "~> 0.17"},
-      {:phoenix_live_dashboard, "~> 0.6"},
+      {:phoenix_live_view, "~> 0.18"},
+      {:phoenix_live_dashboard, "~> 0.7"},
       {:phoenix_bootstrap_form, "~> 0.1.0"},
 
       # extra
@@ -54,7 +54,7 @@ defmodule Flowr.Umbrella.MixProject do
       {:finch, "~> 0.9"},
       {:flow, "~> 1.2.0"},
       {:broadway, "~> 1.0"},
-      {:broadway_dashboard, "~> 0.2.0"},
+      {:broadway_dashboard, "~> 0.3.0"},
       {:execjs, "~> 2.0"},
       {:jaxon, "~> 2.0"},
       {:json_xema, "~> 0.1"},
