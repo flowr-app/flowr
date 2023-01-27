@@ -59,7 +59,7 @@ defmodule Flowr.Umbrella.MixProject do
       {:jaxon, "~> 2.0"},
       {:json_xema, "~> 0.1"},
       {:ecto_psql_extras, "~> 0.2"},
-      {:httpoison, "~> 1.8"}
+      {:httpoison, "~> 2.0"}
     ]
   end
 
